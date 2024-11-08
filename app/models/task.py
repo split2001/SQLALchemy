@@ -2,7 +2,7 @@ from app.backend.db import Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import CreateTable
-
+from app.models import user
 
 class Task(Base):  # модель Task, наследованную от ранее написанного Base
     __tablename__ = 'tasks'
