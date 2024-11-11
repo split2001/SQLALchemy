@@ -62,7 +62,6 @@ async def update_user(db: Annotated[Session, Depends(get_db)], user_id: int, upd
     db.execute(update(User).where(User.id == user_id).values(
         firstname=update_user.firstname,
         lastname=update_user.lastname,
-        slug=slugify(update_user.username),
         age=update_user.age
     ))
 
@@ -82,3 +81,4 @@ async def delete_user(db: Annotated[Session, Depends(get_db)], user_id: int):
     db.execute(delete(User).where(User.id == user_id))
     db.commit()
     return {'status_code': status.HTTP_200_OK, 'transaction': 'User delete is successful!'}
+
