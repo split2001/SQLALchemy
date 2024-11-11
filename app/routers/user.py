@@ -41,7 +41,8 @@ async def create_user(db: Annotated[Session, Depends(get_db)], create_user: Crea
     db.execute(insert(User).values(username=create_user.username,
                                    firstname=create_user.firstname,
                                    lastname=create_user.lastname,
-                                   age=create_user.age))
+                                   age=create_user.age,
+                                   slug=slugify(create_user.username)))
     db.commit()
     return {
         'status_code': status.HTTP_201_CREATED,
@@ -61,6 +62,7 @@ async def update_user(db: Annotated[Session, Depends(get_db)], user_id: int, upd
     db.execute(update(User).where(User.id == user_id).values(
         firstname=update_user.firstname,
         lastname=update_user.lastname,
+        slug=slugify(update_user.username),
         age=update_user.age
     ))
 
